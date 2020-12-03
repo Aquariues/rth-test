@@ -30,16 +30,6 @@ class Flash
 
     {
 
-        if($useLanguage) {
-
-            $title = getPhrase($title);
-
-            $text = getPhrase($text);
-
-        }
-
-
-
         session()->flash($key, [
 
             'title'  =>$title,

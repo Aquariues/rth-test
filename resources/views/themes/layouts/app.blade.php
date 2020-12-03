@@ -22,7 +22,7 @@
   <link href="{{url('/assets/vendor/animate.css/animate.min.css')}}" rel="stylesheet">
   <link href="{{url('/assets/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
   <link href="{{url('/assets/vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
-
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="{{url('/assets/css/style.css')}}" rel="stylesheet">
   @trixassets
@@ -84,6 +84,7 @@
   <script src="{{url('/assets/vendor/php-email-form/validate.js')}}"></script>
   <script src="{{url('/assets/vendor/owl.carousel/owl.carousel.min.js')}}"></script>
   <script src="{{url('/assets/vendor/scrollreveal/scrollreveal.min.js')}}"></script>
+
 
   <!-- Template Main JS File -->
   <script src="{{url('/assets/js/main.js')}}"></script>
