@@ -67,6 +67,8 @@
 
   <main id="main">
 
+    @include('themes.flash.flash-message')
+
     @yield('content')
 
   </main><!-- End #main -->

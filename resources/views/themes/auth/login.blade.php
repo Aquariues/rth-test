@@ -2,20 +2,6 @@
 
 @section('content')
 
-<style>
-.center-form{
-  background-color: #f8f9fa;
-  border-radius: 20px;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 10px 0;
-  align-items: center;
-  justify-content: space-around;
-  display: flex;
-  float: none;
-}
-</style>
-
 <section class="intro-single">
   <div class="container">
     <div class="row">

@@ -2164,7 +2164,21 @@ footer .credits {
 .attachment__caption{
   display: none !important;
 }
+
 .resize-image{
   width: 100%;
   height: auto;
+}
+
+.center-form{
+  background-color: #ffffff;
+  border-left: 3px solid #007bff;
+  border-bottom: 3px solid #007bff;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 10px 0;
+  align-items: center;
+  justify-content: space-around;
+  display: flex;
+  float: none;
 }

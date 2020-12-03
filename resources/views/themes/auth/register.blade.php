@@ -15,19 +15,19 @@
 </section>
 
 <section news-grid grid>
-  <div class="container">
+  <div class="container" >
     {!! Form::open(['url' => 'register', 'method'=>'post']) !!}
-    <div class="row">
-      <div class="col-md-6 mb-12">
+    <div class="row col-md-6 mb-12 center-form">
+      <div class="col-md-12 mb-12 ">
         <div class="form-group">
-          {{ Form::label('Name ','Name  *') }}
-          {{ Form::text('Name ','',['class'=>'form-control form-control-lg form-control-a','placeholder'=>'What should i call you?','required'=>'true']) }}
+          {{ Form::label('name','Name *') }}
+          {{ Form::text('name','',['class'=>'form-control form-control-lg form-control-a','placeholder'=>'Tell me your name','required'=>'true']) }}
         </div>
       </div>
-      <div class="col-md-6 mb-12">
+      <div class="col-md-12 mb-12 ">
         <div class="form-group">
-          {{ Form::label('email','Email *') }}
-          {{ Form::email('email',$list_category,null,['class'=>'form-control form-control-lg form-control-a','placeholder'=>'Aquariues@example.vn','required'=>'true']]) }}
+          {{ Form::label('Email','Email *') }}
+          {{ Form::text('email','',['class'=>'form-control form-control-lg form-control-a','placeholder'=>'Aquariues@example.com','required'=>'true']) }}
         </div>
       </div>
       <div class="col-md-12 mb-12">
@@ -36,8 +36,11 @@
           {{ Form::password('password',['class'=>'form-control form-control-lg form-control-a','required'=>'true']) }}
         </div>
       </div>
-      <div class="col-md-12">
-        {{ Form::submit('Submit',['class'=>'btn btn-primary'])}}
+      <div class="col-md-12 mb-12">
+        {{ Form::submit('Login',['class'=>'btn btn-primary pull-right'])}}
+      </div>
+      <div class="col-md-12 mb-12">
+        Don't have an account? <a class="mt-3 text-success" href="{{url('register')}}">Register here !</a>
       </div>
     </div>
     {!! Form::close() !!}
