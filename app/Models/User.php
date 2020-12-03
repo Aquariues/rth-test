@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function run()
+    {
+        User::factory()
+                ->times(50)
+                ->hasPosts(1)
+                ->create();
+    }
 }

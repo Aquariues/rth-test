@@ -20,6 +20,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12 offset-md-1 col-lg-12">
+            <!-- post info -->
             <div class="post-information">
               <ul class="list-inline text-center color-a">
                 <li class="list-inline-item mr-2">
@@ -36,6 +37,8 @@
                 </li>
               </ul>
             </div>
+            <!-- / post info -->
+            <!-- post content -->
             <div class="post-content color-text-a card-box">
               <blockquote class="blockquote">
               <?php
@@ -44,7 +47,8 @@
               ?>
               </blockquote>
             </div>
-
+            <!-- / post content -->
+            <!-- post comment -->
             <div class="post-footer">
               <div class="post-share">
                 <span>Share: </span>

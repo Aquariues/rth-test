@@ -21,7 +21,7 @@
   <link href="{{url('/assets/vendor/ionicons/css/ionicons.min.css')}}" rel="stylesheet">
   <link href="{{url('/assets/vendor/animate.css/animate.min.css')}}" rel="stylesheet">
   <link href="{{url('/assets/vendor/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
-  <link href="{{url('/assets/vendor/owl.carousel/public/assets/owl.carousel.min.css')}}" rel="stylesheet">
+  <link href="{{url('/assets/vendor/owl.carousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{url('/assets/css/style.css')}}" rel="stylesheet">
@@ -38,7 +38,7 @@
         <span></span>
         <span></span>
       </button>
-      <a class="navbar-brand text-brand" href="home">AQ<span class="color-b">Blog</span></a>
+      <a class="navbar-brand text-brand" href="{{url('home')}}">AQ<span class="color-b">Blog</span></a>
       <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
         <ul class="navbar-nav">
           <li class="nav-item">
