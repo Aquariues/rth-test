@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="col-md-12">
-        {{ Form::submit('Submit',['class'=>'btn btn-primary'])}}
+        {{ Form::submit('Submit',['class'=>'btn btn-primary pull-right'])}}
       </div>
     </div>
     {!! Form::close() !!}

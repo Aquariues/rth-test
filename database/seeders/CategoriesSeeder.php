@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class UserSeeder extends Seeder
+class CategoriesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,12 +16,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-      for($i=1; $i<=50; $i++){
-        DB::table('users')->insert([
-          'name' => Str::random(10),
-          'email' => Str::random(10).'@gmail.com',
-          'password' => Hash::make('password'),
-        ]);
-      }
+        for($i=0; $i<=10; $i++){
+        	DB::table('categories')->insert([
+        		'name'			=>	'Categories '.$i,
+        		'created_by'	=>	rand(1,50),
+        	]);
+        }
     }
 }
