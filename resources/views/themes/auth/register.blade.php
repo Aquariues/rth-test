@@ -37,10 +37,10 @@
         </div>
       </div>
       <div class="col-md-12 mb-12">
-        {{ Form::submit('Login',['class'=>'btn btn-primary pull-right'])}}
+        {{ Form::submit('Register',['class'=>'btn btn-primary pull-right'])}}
       </div>
       <div class="col-md-12 mb-12">
-        Don't have an account? <a class="mt-3 text-success" href="{{url('register')}}">Register here !</a>
+        Have an account? <a class="mt-3 text-success" href="{{url('login')}}">Login here !</a>
       </div>
     </div>
     {!! Form::close() !!}

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Flash;
+use App\helpers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Session;
 use DB;
 
 class HomeController extends Controller

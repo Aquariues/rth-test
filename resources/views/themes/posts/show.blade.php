@@ -25,7 +25,7 @@
               <ul class="list-inline text-center color-a">
                 <li class="list-inline-item mr-2">
                   <strong>Author: </strong>
-                  <span class="color-text-a">{{$detail->created_by}}</span>
+                  <span class="color-text-a">{{$detail->author}}</span>
                 </li>
                 <li class="list-inline-item mr-2">
                   <strong>Category: </strong>
@@ -41,10 +41,7 @@
             <!-- post content -->
             <div class="post-content color-text-a card-box">
               <blockquote class="blockquote">
-              <?php
-                $resize = str_replace('<img src=','<img class="resize-image" src=',$detail->contents);
-                echo str_replace('/public/storage/','/storage/app/public/',$resize);
-              ?>
+                <?php echo $detail->contents;?>
               </blockquote>
             </div>
             <!-- / post content -->
@@ -77,98 +74,64 @@
               </div>
             </div>
           </div>
+          <!-- comment -->
           <div class="col-md-10 offset-md-1 col-lg-10 offset-lg-1">
             <div class="title-box-d">
-              <h3 class="title-d">Comments (4)</h3>
+              <h3 class="title-d">Comments ({{count($comments)}})</h3>
             </div>
             <div class="box-comments">
               <ul class="list-comments">
-                <li>
-                  <div class="comment-avatar">
-                    <img src="assets/img/author-2.jpg" alt="">
-                  </div>
-                  <div class="comment-details">
-                    <h4 class="comment-author">Emma Stone</h4>
-                    <span>18 Sep 2017</span>
-                    <p class="comment-description">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                      ipsam temporibus maiores
-                      quae natus libero optio, at qui beatae ducimus placeat debitis voluptates amet corporis.
-                    </p>
-                    <a href="3">Reply</a>
-                  </div>
-                </li>
-                <li class="comment-children">
-                  <div class="comment-avatar">
-                    <img src="assets/img/author-1.jpg" alt="">
-                  </div>
-                  <div class="comment-details">
-                    <h4 class="comment-author">Oliver Colmenares</h4>
-                    <span>18 Sep 2017</span>
-                    <p class="comment-description">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                      ipsam temporibus maiores
-                      quae.
-                    </p>
-                    <a href="3">Reply</a>
-                  </div>
-                </li>
-                <li>
-                  <div class="comment-avatar">
-                    <img src="assets/img/author-2.jpg" alt="">
-                  </div>
-                  <div class="comment-details">
-                    <h4 class="comment-author">Emma Stone</h4>
-                    <span>18 Sep 2017</span>
-                    <p class="comment-description">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit, provident cumque
-                      ipsam temporibus maiores
-                      quae natus libero optio.
-                    </p>
-                    <a href="3">Reply</a>
-                  </div>
-                </li>
-              </ul>
+                @if(count($comments) > 0)
+                  @foreach($comments as $comment)
+                  <li>
+                    <div class="comment-avatar">
+                      <img src="assets/img/author-2.jpg" alt="">
+                    </div>
+                    <div class="comment-details">
+                      <h4 class="comment-author">{{$comment->name}}</h4>
+                      <span>{{$comment->created_at}}</span>
+                      <p class="comment-description">
+                        {{$comment->comment}}
+                      </p>
+                    </div>
+                  </li>
+                  @endforeach
+                @else
+                  Oops, no commet for this post now
+                @endif
+
             </div>
+            <!-- form comment -->
+
             <div class="form-comments">
               <div class="title-box-d">
-                <h3 class="title-d"> Leave a Reply</h3>
+                <h3 class="title-d"> Your comment </h3>
               </div>
-              <form class="form-a">
+              @if(Session::has('users'))
+              <?php $url = url('comments/'.$detail->id);?>
+              {!! Form::open(['url' => $url, 'method'=>'post']) !!}
                 <div class="row">
-                  <div class="col-md-6 mb-3">
+                  <div class="col-md-12 mb-12">
                     <div class="form-group">
-                      <label for="inputName">Enter name</label>
-                      <input type="text" class="form-control form-control-lg form-control-a" id="inputName" placeholder="Name *" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <div class="form-group">
-                      <label for="inputEmail1">Enter email</label>
-                      <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1" placeholder="Email *" required>
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <label for="inputUrl">Enter website</label>
-                      <input type="url" class="form-control form-control-lg form-control-a" id="inputUrl" placeholder="Website">
-                    </div>
-                  </div>
-                  <div class="col-md-12 mb-3">
-                    <div class="form-group">
-                      <label for="textMessage">Enter message</label>
-                      <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45" rows="8" required></textarea>
+                      {{ Form::label('comment','Comment *') }}
+                      {{ Form::textarea('comment','',['class'=>'form-control form-control-lg form-control-a','placeholder'=>'Write comment here...','required'=>'true','rows'=>5]) }}
                     </div>
                   </div>
                   <div class="col-md-12">
-                    <button type="submit" class="btn btn-a">Send Message</button>
+                    {{ Form::submit('Send Comment',['class'=>'btn btn-primary pull-right'])}}
                   </div>
                 </div>
               </form>
+              @else
+                You need login !!! <a href="{{url('login')}}" >Click here !!! </a>
+              @endif
             </div>
+
+            <!-- end form comment -->
           </div>
+          <!-- end comment -->
         </div>
       </div>
-    </section><!-- End Blog Single-->
+    </section>
 
 @endsection

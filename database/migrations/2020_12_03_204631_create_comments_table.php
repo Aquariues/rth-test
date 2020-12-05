@@ -15,8 +15,10 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id')->nullable();
+            $table->integer('posts_id')->nullable();
             $table->mediumText('comment')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->timestamp('created_at')->useCurrent();
             $table->integer('updated_by')->nullable();
             $table->timestamp('updated_at')->default(\DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->tinyInteger('delete_status')->default('0');

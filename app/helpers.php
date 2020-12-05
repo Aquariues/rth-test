@@ -1,5 +1,4 @@
 <?php
-
 function flash($title = null, $text = null, $type='info')
 {
     $flash = app('App\Http\Flash');
@@ -9,4 +8,9 @@ function flash($title = null, $text = null, $type='info')
     return $flash->$type($title, $text);
 }
 
+function checkLogin(){
+  if(!Session::has('users'))
+    return false;
+  return true;
+}
 ?>

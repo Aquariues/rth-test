@@ -34,11 +34,15 @@
                     </div>
                     <div class="card-title-b">
                       <h2 class="title-2">
-                        <a href="{{url('posts/'.$r->id)}}">{{$r->title}}</a>
+                        <a href="posts/{{$r->id}}">{{$r->title}}</a>
+                        <div class="card-date">
+                          <span class="date-b">{{$r->created_at}}</span>
+                        </div>
+                        <div>
+                          <a href="{{url('posts/'.$r->id.'/edit/')}}" class="btn btn-warning">Edit</a>
+                          <a href="{{url('posts/destroy/'.$r->id)}}" class="btn btn-danger">Delete</a>
+                        </div>
                       </h2>
-                    </div>
-                    <div class="card-date">
-                      <span class="date-b">{{$r->created_at}}</span>
                     </div>
                   </div>
                 </div>

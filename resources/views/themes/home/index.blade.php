@@ -34,7 +34,7 @@
                   </div>
                   <div class="card-title-b">
                     <h2 class="title-2">
-                      <a href="blog-single.html">{{$r->title}}</a>
+                      <a href="{{url('posts/'.$r->id)}}">{{$r->title}}</a>
                     </h2>
                   </div>
                   <div class="card-date">

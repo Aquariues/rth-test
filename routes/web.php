@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +30,6 @@ Route::post('register', [AuthController::class, 'checkRegister']);
 Route::get('logout', [AuthController::class, 'logout']);
 
 Route::resource('posts',PostsController::class);
+Route::get('my-posts', [PostsController::class, 'myPosts']);
 Route::resource('categories',CategoriesController::class);
+Route::post('comments/{id}', [CommentsController::class, 'store']);

@@ -14,7 +14,7 @@
   <link href="{{url('/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700')}}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{{url('/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -30,7 +30,7 @@
 
 <body>
 
-  <!-- ======= Header/Navbar ======= -->
+  <!-- Header/Navbar -->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container">
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault" aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,20 +50,27 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{url('posts')}}">List Post</a>
+              <a class="dropdown-item" href="{{url('my-posts')}}">My Post</a>
               <a class="dropdown-item" href="{{url('posts/create')}}">Create Post</a>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url('rank')}}">Rank</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url('about')}}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{url('login')}}">Login</a>
+          <li class="nav-item ml-3">
+            @if(Session::has('users'))
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="logout" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Hi, {{Session::get('users')->name}}
+              </a>
+              <div class="dropdown-menu" aria-labelledby="logout">
+                <a class="dropdown-item" href="{{url('logout')}}">Logout</a>
+              </div>
+            </li>
+            @else
+              <a class="nav-link" href="{{url('login')}}">Login</a>
+            @endif
           </li>
     </div>
-  </nav><!-- End Header/Navbar -->
+  </nav>
+  <!-- End Header/Navbar -->
 
   <main id="main">
 
@@ -71,7 +78,8 @@
 
     @yield('content')
 
-  </main><!-- End #main -->
+  </main>
+  <!-- End #main -->
 
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

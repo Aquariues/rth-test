@@ -3,8 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Flash;
+use App\helpers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Session;
+use DB;
+use App\Models\Comment;
 
-class CategoriesController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -32,9 +39,20 @@ class CategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request,$id)
     {
-        //
+      if(!checkLogin()){
+        flash('error','You must login for this feature !','error');
+        return back();
+      }
+
+      $com = new Comment();
+      $com->comment = $request->comment;
+      $com->posts_id = $id;
+      $com->created_by = Session::get('users')->id;
+      $com->save();
+      flash('success','Your posts is created, thank you <3','success');
+      return redirect(url('posts/'.$id));
     }
 
     /**
