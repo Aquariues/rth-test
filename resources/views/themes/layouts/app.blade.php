@@ -80,7 +80,24 @@
 
   </main>
   <!-- End #main -->
-
+  <section class="section-footer">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-md-12">
+          From Long with luv <3
+        </div>
+      </div>
+    </div>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+            RTH - Test specification - Backend - PHP
+        </div>
+      </div>
+    </div>
+  </footer>
+</section>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
   <div id="preloader"></div>

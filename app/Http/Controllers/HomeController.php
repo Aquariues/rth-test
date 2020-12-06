@@ -23,6 +23,7 @@ class HomeController extends Controller
                                 ['posts.delete_status',0]
                               ])
                               ->orderBy('posts.created_at','desc')
+                              ->limit(3)
                               ->get();
 
       $data['posts_most_view']= DB::table('posts')
@@ -31,7 +32,8 @@ class HomeController extends Controller
                               ->where([
                                 ['posts.delete_status',0]
                               ])
-                              // ->orderBy('posts.count_view','desc')
+                              ->orderBy('posts.count_view','desc')
+                              ->limit(3)
                               ->get();
 
       return view('themes.home.index',$data);

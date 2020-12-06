@@ -66,7 +66,13 @@ class PostsController extends Controller
           flash('error','You must login for this feature !','error');
           return back();
         }
-
+        try{
+          $name = $request->file('image')->getClientOriginalName();
+          $path = $request->file('image')->store('storage');
+        }catch(Exception $e){
+          flash('error','Upload file failed !','error');
+          return back();
+        }
         $resize = str_replace('<img src=','<img class="resize-image" src=',$request->{'article-trixFields'}['content']);
         $content =  str_replace('/public/storage/','/storage/app/public/',$resize);
         $content = str_replace(url(''),'',$content);
@@ -77,7 +83,9 @@ class PostsController extends Controller
         $post->created_by = Session::get('users')->id;
         $post->contents = $content;
         $post->count_view = rand(1,100);
+        $post->image = $path;
         $post->save();
+
         flash('success','Your posts is created, thank you <3','success');
         return redirect(url('posts/'.$post->id));
     }

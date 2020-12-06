@@ -16,7 +16,7 @@
 
 <section news-grid grid>
   <div class="container">
-    {!! Form::open(['url' => 'posts', 'method'=>'post']) !!}
+    {!! Form::open(['url' => 'posts', 'method'=>'post','files'=>'true']) !!}
     <div class="row">
       <div class="col-md-6 mb-12">
         <div class="form-group">
@@ -34,6 +34,12 @@
         <div class="form-group">
           {{ Form::label('content','Content *') }}
           @trix(\App\Article::class, 'content')
+        </div>
+      </div>
+      <div class="col-md-6 mb-12">
+        <div class="form-group">
+          {{ Form::label('image','Image *') }}
+          {{ Form::file('image',['class'=>'form-control form-control-lg form-control-a','required'=>'true']) }}
         </div>
       </div>
       <div class="col-md-12">
