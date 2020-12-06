@@ -85,7 +85,7 @@
                   @foreach($comments as $comment)
                   <li>
                     <div class="comment-avatar">
-                      <img src="assets/img/author-2.jpg" alt="">
+                      <img src="{{url('/assets/img/avatar.jpg')}}" alt="">
                     </div>
                     <div class="comment-details">
                       <h4 class="comment-author">{{$comment->name}}</h4>
