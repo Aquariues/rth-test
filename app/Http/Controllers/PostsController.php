@@ -79,23 +79,11 @@ class PostsController extends Controller
         try{
           $name = $request->file('image')->getClientOriginalName();
           $path = $request->file('image')->storeAs('images/posts',$name);
-
-          $image = $request->file('image');
-          $img = Image::make($image->path());
-          $img->resize(500, 500);
-          $a = $img->save(storage_path('images/posts-re/'),$name);
-          dump($image);
-          dd($img);
-
-          $destinationPath = public_path('/images');
-          $image->move($destinationPath, $input['imagename']);
-
         }catch(Exception $e){
           flash('error','Upload file failed !','error');
           return back();
         }
         $real_path = str_replace('public','storage/app/',url('').$path);
-        $resize_path = str_replace('public','storage/app/',url('').$resize_path);
         $post = new Post();
         $post->title = $request->title;
         $post->categories_id = $request->category;
@@ -103,9 +91,8 @@ class PostsController extends Controller
         $post->contents = $request->{'article-trixFields'}['content'];
         $post->count_view = rand(1,100);
         $post->image = $real_path;
-        $post->image_resize = $resize_path;
+        $post->image_resize = url('/').'/assets/img/post-'.$request->category.'.jpg';
         $post->save();
-        dd($post->id);
         flash('success','Your posts is created, thank you <3','success');
         return redirect(url('posts/'.$post->id));
     }
@@ -187,17 +174,27 @@ class PostsController extends Controller
           flash('error','You must login for this feature !','error');
           return back();
         }
-        // dd($request->request);
-        $resize = str_replace('<img src=','<img class="resize-image" src=',$request->contents);
-        $content =  str_replace('/public/storage/','/storage/app/public/',$resize);
-        $content = str_replace(url(''),'',$content);
 
         $posts = new Post();
         $post = $posts::find($id);
+        if($request->file('image') !== null){
+          try{
+            $name = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images/posts',$name);
+          }catch(Exception $e){
+            flash('error','Upload file failed !','error');
+            return back();
+          }
+          $real_path = str_replace('public','storage/app/',url('').$path);
+          $post->image = $real_path;
+        }
+
         $post->title = $request->title;
         $post->categories_id = $request->category;
         $post->created_by = Session::get('users')->id;
-        $post->contents = $content;
+        $post->updated_by = Session::get('users')->id;
+        $post->updated_at = date('Y-m-d H:i:s');
+        $post->contents = $request->contents;
         $post->count_view = rand(1,100);
 
         $post->save();

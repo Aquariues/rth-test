@@ -69,6 +69,34 @@ class PostsController extends Controller
     }
 
     public function search(Request $request){
-      
+      // dd($request->request);
+      $query    = DB::table('posts')
+      ->select(['posts.*','categories.name as categories_name'])
+      ->join('categories','categories.id','=','posts.categories_id')
+      ->where([
+        ['posts.delete_status',0],
+      ]);
+
+      if($request->keyword != null)
+        $query->where('title','like','%'.$request->keyword.'%');
+      if($request->category != '0' && $request->category != null)
+        $query->where('categories_id',$request->category);
+      switch ($request->sort) {
+        case '1':
+          $query->orderBy('created_at','desc');
+          break;
+        case '2':
+          $query->orderBy('created_at','asc');
+          break;
+
+        default:
+          // code...
+          break;
+      }
+
+      $response = $query->get();
+      if($response->isEmpty())
+        return ['message' => 'The post you looking for not found'];
+      return $response;
     }
 }

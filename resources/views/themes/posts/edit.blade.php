@@ -21,7 +21,7 @@
 <section news-grid grid>
   <div class="container">
     <?php $url = 'posts/'.$posts->id; ?>
-    {!! Form::open(['url' => "$url", 'method'=>'put']) !!}
+    {!! Form::open(['url' => "$url", 'method'=>'put', 'files'=>'true']) !!}
     <div class="row">
       <div class="col-md-6 mb-12">
         <div class="form-group">
@@ -40,6 +40,17 @@
           {{ Form::label('content','Content *') }}
           <input id="short_desc" type="hidden" name="contents" value="{{$posts->contents}}" >
           <trix-editor input="short_desc" placeholder=""></trix-editor>
+        </div>
+      </div>
+      <div class="col-md-6 mb-12">
+        <div class="form-group">
+          {{ Form::label('image','Image') }}
+          {{ Form::file('image',['class'=>'form-control form-control-lg form-control-a']) }}
+        </div>
+      </div>
+      <div class="col-md-12 mb-12">
+        <div class="form-group">
+          <img src="{{$posts->image}}" alt="" class="img-b img-fluid">
         </div>
       </div>
       <div class="col-md-12">

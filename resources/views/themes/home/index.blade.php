@@ -49,6 +49,11 @@
         Opps notthing here
       @endif
     </div>
+    <div class='row'>
+      <div class='col-md-12 text-center'>
+        <a class='btn btn-primary' href='{{url("posts")}}'> View more wonderful posts here </a>
+      </div>
+    </div>
   </div>
 </section>
 <!-- / Newest Blog Grid -->
@@ -76,7 +81,7 @@
           <div class="col-md-4">
             <div class="card-box-b card-shadow news-box">
               <div class="img-box-b">
-                <img width="500px" height="500px" src="{{$r->image}}" alt="" class="img-b img-fluid">
+                <img src="{{$r->image_resize}}" alt="" class="img-b img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-header-b">

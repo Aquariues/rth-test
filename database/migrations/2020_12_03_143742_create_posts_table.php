@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title')->nullable();
             $table->mediumText('contents')->nullable();
             $table->integer('count_view')->default('0');
-            $table->string('image')->nullable()->default(url('/').'/assets/img/property-1.jpg');
+            $table->string('image')->nullable()->default(url('/').'/assets/img/post-single-1.jpg');
             $table->string('image_resize')->nullable()->default(url('/').'/assets/img/post-1.jpg');
             $table->integer('created_by')->nullable();
             $table->timestamp('created_at')->useCurrent();
