@@ -9,9 +9,12 @@ use App\helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 use Session;
 use DB;
+use Storage;
 use App\Article;
+use Image;
 
 class PostsController extends Controller
 {
@@ -24,14 +27,21 @@ class PostsController extends Controller
     {
         $data['title']    = 'List Posts';
         $data['posts']    = DB::table('posts')
-                                ->select(['posts.*','categories.name as categories_name'])
-                                ->join('categories','categories.id','=','posts.categories_id')
-                                ->where([
-                                  ['posts.delete_status',0]
-                                ])
-                                ->orderBy('posts.created_at','desc')
-                                ->get();
+        ->select(['posts.*','categories.name as categories_name'])
+        ->join('categories','categories.id','=','posts.categories_id')
+        ->where([
+          ['posts.delete_status',0]
+        ])
+        ->orderBy('posts.created_at','desc')
+        ->get();
+        $list_category = Categories::where('delete_status',0)->get();
+        $data['list_category'] = ['0'=>'Select category'];
+        foreach($list_category as $r){
+          $data['list_category'][$r->id] = $r->name;
+        }
+        $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
         return view('themes.posts.index',$data);
+
     }
 
     /**
@@ -46,11 +56,11 @@ class PostsController extends Controller
           return back();
         }
         $list_category = Categories::where('delete_status',0)->get();
-
-        $data['list_category'] = [];
+        $data['list_category'] = ['0'=>'Select category'];
         foreach($list_category as $r){
           $data['list_category'][$r->id] = $r->name;
         }
+        $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
         return view('themes.posts.create',$data);
     }
 
@@ -68,24 +78,34 @@ class PostsController extends Controller
         }
         try{
           $name = $request->file('image')->getClientOriginalName();
-          $path = $request->file('image')->store('storage');
+          $path = $request->file('image')->storeAs('images/posts',$name);
+
+          $image = $request->file('image');
+          $img = Image::make($image->path());
+          $img->resize(500, 500);
+          $a = $img->save(storage_path('images/posts-re/'),$name);
+          dump($image);
+          dd($img);
+
+          $destinationPath = public_path('/images');
+          $image->move($destinationPath, $input['imagename']);
+
         }catch(Exception $e){
           flash('error','Upload file failed !','error');
           return back();
         }
-        $resize = str_replace('<img src=','<img class="resize-image" src=',$request->{'article-trixFields'}['content']);
-        $content =  str_replace('/public/storage/','/storage/app/public/',$resize);
-        $content = str_replace(url(''),'',$content);
-
+        $real_path = str_replace('public','storage/app/',url('').$path);
+        $resize_path = str_replace('public','storage/app/',url('').$resize_path);
         $post = new Post();
         $post->title = $request->title;
         $post->categories_id = $request->category;
         $post->created_by = Session::get('users')->id;
-        $post->contents = $content;
+        $post->contents = $request->{'article-trixFields'}['content'];
         $post->count_view = rand(1,100);
-        $post->image = $path;
+        $post->image = $real_path;
+        $post->image_resize = $resize_path;
         $post->save();
-
+        dd($post->id);
         flash('success','Your posts is created, thank you <3','success');
         return redirect(url('posts/'.$post->id));
     }
@@ -119,6 +139,12 @@ class PostsController extends Controller
           ['comments.delete_status',0]
         ])
         ->get();
+        $list_category = Categories::where('delete_status',0)->get();
+        $data['list_category'] = ['0'=>'Select category'];
+        foreach($list_category as $r){
+          $data['list_category'][$r->id] = $r->name;
+        }
+        $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
 
         return view('themes.posts.show',$data);
     }
@@ -137,11 +163,12 @@ class PostsController extends Controller
         }
 
         $list_category = Categories::where('delete_status',0)->get();
-
-        $data['list_category'] = [];
+        $data['list_category'] = ['0'=>'Select category'];
         foreach($list_category as $r){
           $data['list_category'][$r->id] = $r->name;
         }
+        $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
+
         $data['posts'] = Post::where('id',$id)->get()->first();
         return view('themes.posts.edit',$data);
 
@@ -198,15 +225,58 @@ class PostsController extends Controller
         return back();
       }
       $data['posts']    = DB::table('posts')
-                              ->select(['posts.*','categories.name as categories_name'])
-                              ->join('categories','categories.id','=','posts.categories_id')
-                              ->where([
-                                ['posts.delete_status',0],
-                                ['posts.created_by',Session::get('users')->id]
-                              ])
-                              ->orderBy('posts.created_at','desc')
-                              ->get();
+      ->select(['posts.*','categories.name as categories_name'])
+      ->join('categories','categories.id','=','posts.categories_id')
+      ->where([
+        ['posts.delete_status',0],
+        ['posts.created_by',Session::get('users')->id]
+      ])
+      ->orderBy('posts.created_at','desc')
+      ->get();
+      $list_category = Categories::where('delete_status',0)->get();
+      $data['list_category'] = ['0'=>'Select category'];
+      foreach($list_category as $r){
+        $data['list_category'][$r->id] = $r->name;
+      }
+      $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
       $data['title']    = 'My Posts';
       return view('themes.posts.myposts',$data);
+    }
+
+    public function search(Request $request){
+
+      $data['title']    = 'Search result';
+      $query    = DB::table('posts')
+      ->select(['posts.*','categories.name as categories_name'])
+      ->join('categories','categories.id','=','posts.categories_id')
+      ->where([
+        ['posts.delete_status',0],
+      ]);
+
+      if($request->keyword != null)
+        $query->where('title','like','%'.$request->keyword.'%');
+      if($request->category != '0')
+        $query->where('categories_id',$request->category);
+      switch ($request->sort) {
+        case '1':
+          $query->orderBy('created_at','desc');
+          break;
+        case '2':
+          $query->orderBy('created_at','asc');
+          break;
+
+        default:
+          // code...
+          break;
+      }
+
+      $data['posts'] = $query->get();
+      $list_category = Categories::where('delete_status',0)->get();
+      $data['list_category'] = ['0'=>'Select category'];
+      foreach($list_category as $r){
+        $data['list_category'][$r->id] = $r->name;
+      }
+      $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
+      return view('themes.posts.index',$data);
     }
 }

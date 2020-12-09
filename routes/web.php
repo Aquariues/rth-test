@@ -31,5 +31,6 @@ Route::get('logout', [AuthController::class, 'logout']);
 
 Route::resource('posts',PostsController::class);
 Route::get('my-posts', [PostsController::class, 'myPosts']);
+Route::get('search', [PostsController::class, 'search']);
 Route::resource('categories',CategoriesController::class);
 Route::post('comments/{id}', [CommentsController::class, 'store']);

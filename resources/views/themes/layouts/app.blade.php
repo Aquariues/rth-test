@@ -30,6 +30,41 @@
 
 <body>
 
+  <div class="box-collapse">
+    <div class="title-box-d">
+      <h3 class="title-d">Search</h3>
+    </div>
+    <span class="close-box-collapse right-boxed ion-ios-close"></span>
+    <div class="box-collapse-wrap form">
+      {!! Form::open(['url' => 'search', 'method'=>'get','class'=>'form-a']) !!}
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-group">
+              {{ Form::label('keyword','Keyword') }}
+              {{ Form::text('keyword','',['class'=>'form-control form-control-lg form-control-a','placeholder'=>'Tell me what are you finding']) }}
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              {{ Form::label('category','Category') }}
+              {{ Form::select('category',$list_category,null,['class'=>'form-control form-control-lg form-control-a']) }}
+            </div>
+          </div>
+          <div class="col-md-6 mb-2">
+            <div class="form-group">
+              {{ Form::label('sort','Sort') }}
+              {{ Form::select('sort',$sort,null,['class'=>'form-control form-control-lg form-control-a']) }}
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b pull-right">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Property Search Section -->>
+
   <!-- Header/Navbar -->
   <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
     <div class="container">
@@ -69,6 +104,9 @@
             @endif
           </li>
     </div>
+    <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-expanded="false">
+      <span class="fa fa-search" aria-hidden="true"></span>
+    </button>
   </nav>
   <!-- End Header/Navbar -->
 

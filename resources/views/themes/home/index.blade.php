@@ -25,7 +25,7 @@
           <div class="col-md-4">
             <div class="card-box-b card-shadow news-box">
               <div class="img-box-b">
-                <img src="assets/img/post-1.jpg" alt="" class="img-b img-fluid">
+                <img src="{{$r->image_resize}}" alt="" class="img-b img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-header-b">
@@ -76,7 +76,7 @@
           <div class="col-md-4">
             <div class="card-box-b card-shadow news-box">
               <div class="img-box-b">
-                <img src="assets/img/post-1.jpg" alt="" class="img-b img-fluid">
+                <img width="500px" height="500px" src="{{$r->image}}" alt="" class="img-b img-fluid">
               </div>
               <div class="card-overlay">
                 <div class="card-header-b">

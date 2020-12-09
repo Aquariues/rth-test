@@ -8,13 +8,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Session;
 use DB;
+use App\Models\Categories;
 
 class AuthController extends Controller
 {
     public function register()
     {
-
-        return view('themes.auth.register');
+      $list_category = Categories::where('delete_status',0)->get();
+      $data['list_category'] = ['0'=>'Select category'];
+      foreach($list_category as $r){
+        $data['list_category'][$r->id] = $r->name;
+      }
+      $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
+      return view('themes.auth.register',$data);
     }
 
     public function checkRegister(Request $request)
@@ -48,8 +54,13 @@ class AuthController extends Controller
 
     public function login()
     {
-
-        return view('themes.auth.login');
+      $list_category = Categories::where('delete_status',0)->get();
+      $data['list_category'] = ['0'=>'Select category'];
+      foreach($list_category as $r){
+        $data['list_category'][$r->id] = $r->name;
+      }
+      $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
+      return view('themes.auth.login',$data);
     }
 
     public function checkLogin(Request $request){

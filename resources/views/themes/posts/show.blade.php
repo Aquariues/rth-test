@@ -41,6 +41,11 @@
             <!-- post content -->
             <div class="post-content color-text-a card-box">
               <blockquote class="blockquote">
+                <?php
+                  if($detail->image != null){
+                    echo "<img class='resize-image' src='".$detail->image."'>";
+                  }
+                ?>
                 <?php echo $detail->contents;?>
               </blockquote>
             </div>

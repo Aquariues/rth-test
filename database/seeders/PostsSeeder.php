@@ -22,6 +22,8 @@ class PostsSeeder extends Seeder
                 'contents'        =>  Str::random(20),
                 'count_view'      =>  rand(1,100),
                 'created_by'      =>  rand(1,10),
+                'image'           =>  url('/').'/assets/img/property-'.rand(1,10).'.jpg',
+                'image_resize'    =>  url('/').'/assets/img/post-'.rand(1,7).'.jpg',
             ]);
         }
     }

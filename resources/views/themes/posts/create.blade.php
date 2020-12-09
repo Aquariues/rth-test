@@ -33,7 +33,7 @@
       <div class="col-md-12 mb-12">
         <div class="form-group">
           {{ Form::label('content','Content *') }}
-          @trix(\App\Article::class, 'content')
+          @trix(\App\Article::class, 'content',['hideTools' => ['file-tools']])
         </div>
       </div>
       <div class="col-md-6 mb-12">
