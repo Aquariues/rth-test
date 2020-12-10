@@ -1,0 +1,222 @@
+{
+	"info": {
+		"_postman_id": "8c1f35ef-e06f-47e7-ac76-dfd07289e3f2",
+		"name": "heroku rth-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get full post",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://aquariues-rth-blog.herokuapp.com/api/posts",
+					"protocol": "http",
+					"host": [
+						"aquariues-rth-blog",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get selected post by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://aquariues-rth-blog.herokuapp.com/api/posts/1",
+					"protocol": "http",
+					"host": [
+						"aquariues-rth-blog",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "USER-TOKEN",
+						"value": "o8SkzziNPzfFrRPIIFtzP5isMJmJV4N2mK5wLsUiNir4wAw2dL",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Aquaiues/OneDrive/Hình ảnh/wp-2014-08-milky-way-1023340_1280.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://aquariues-rth-blog.herokuapp.com/api/posts?category=1&title=new blog from aqua&contents=new contents ne hihi",
+					"protocol": "http",
+					"host": [
+						"aquariues-rth-blog",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "1"
+						},
+						{
+							"key": "title",
+							"value": "new blog from aqua"
+						},
+						{
+							"key": "contents",
+							"value": "new contents ne hihi"
+						}
+					]
+				},
+				"description": "params: category - title - contents - image('file')"
+			},
+			"response": []
+		},
+		{
+			"name": "edit post",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "USER-TOKEN",
+						"value": "o8SkzziNPzfFrRPIIFtzP5isMJmJV4N2mK5wLsUiNir4wAw2dL",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/Aquaiues/OneDrive/Hình ảnh/css-background-effects-thumb (1).jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://aquariues-rth-blog.herokuapp.com/api/posts/41?category=5&title=update title from api&contents=contents from api",
+					"protocol": "http",
+					"host": [
+						"aquariues-rth-blog",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"41"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "5"
+						},
+						{
+							"key": "title",
+							"value": "update title from api"
+						},
+						{
+							"key": "contents",
+							"value": "contents from api"
+						}
+					]
+				},
+				"description": "params : category - title - contents - image ( file )"
+			},
+			"response": []
+		},
+		{
+			"name": "delete post by id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "USER-TOKEN",
+						"value": "o8SkzziNPzfFrRPIIFtzP5isMJmJV4N2mK5wLsUiNir4wAw2dL",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://aquariues-rth-blog.herokuapp.com/api/posts/41",
+					"protocol": "http",
+					"host": [
+						"aquariues-rth-blog",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"posts",
+						"41"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://aquariues-rth-blog.herokuapp.com/api/search?keyword=python&category=2&sort=1",
+					"protocol": "http",
+					"host": [
+						"aquariues-rth-blog",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"search"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "python"
+						},
+						{
+							"key": "category",
+							"value": "2"
+						},
+						{
+							"key": "sort",
+							"value": "1"
+						}
+					]
+				},
+				"description": "params : keyword - category - sort"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
