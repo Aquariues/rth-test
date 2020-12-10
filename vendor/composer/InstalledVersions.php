@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '50585bbfe04155f7b699822358fceab979dce85c',
+    'reference' => '5ad774cbce379b63158a0bc84ec02f5ae16b1b96',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -41,6 +41,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '283a40c901101e66de7061bd359252c013dcc43c',
+    ),
+    'cloudinary-labs/cloudinary-laravel' => 
+    array (
+      'pretty_version' => '1.0.2',
+      'version' => '1.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '16cb7bc302ff522c3d159682da63964ad0013c05',
+    ),
+    'cloudinary/cloudinary_php' => 
+    array (
+      'pretty_version' => '2.0.0-beta7',
+      'version' => '2.0.0.0-beta7',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ade7928ac42b2dfbdafa2c9ab537144610ae6fd2',
     ),
     'cordoval/hamcrest-php' => 
     array (
@@ -485,7 +503,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '50585bbfe04155f7b699822358fceab979dce85c',
+      'reference' => '5ad774cbce379b63158a0bc84ec02f5ae16b1b96',
     ),
     'laravel/passport' => 
     array (
@@ -1119,6 +1137,24 @@ private static $installed = array (
       array (
       ),
       'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
+    ),
+    'shrikeh/teapot' => 
+    array (
+      'pretty_version' => 'v1.0.2',
+      'version' => '1.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '879ad8e197b75d0a34afb92e0ec70b75fd5cf171',
+    ),
+    'squizlabs/php_codesniffer' => 
+    array (
+      'pretty_version' => '2.9.2',
+      'version' => '2.9.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2acf168de78487db620ab4bc524135a13cfe6745',
     ),
     'swiftmailer/swiftmailer' => 
     array (

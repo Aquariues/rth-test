@@ -77,6 +77,8 @@ class PostsController extends Controller
           return back();
         }
         try{
+          $response = $request->file('image')->storeOnCloudinary()->getSecurePath();
+          dd($response);
           $name = $request->file('image')->getClientOriginalName();
           $path = $request->file('image')->storeAs('images/posts',$name);
         }catch(Exception $e){
