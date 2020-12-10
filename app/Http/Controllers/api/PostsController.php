@@ -16,7 +16,8 @@ class PostsController extends Controller
   */
   public function index()
   {
-    return Post::all();
+    $post = DB::table('posts')->where('delete_status',0)->get();
+    return response()->json($post);
   }
 
   /**
@@ -36,6 +37,9 @@ class PostsController extends Controller
       if($request->input($r) == null)
       return ['message','Missing params '.$r];
     }
+    $check_category = DB::table('categories')->where('id',$request->input('category'))->get()->first();
+    if($check_category == null)
+      return ['message'=>"Category not found, please check category params agains"];
     if($request->file('image') == null){
       return ['message','Missing image files'];
     }
@@ -57,7 +61,7 @@ class PostsController extends Controller
           $post->image = $path;
           $post->image_resize = $resize_path;
           $post->save();
-          return ['message' => 'Your post created !'];
+          return ['message' => 'Your post created ! <a href="'.url('/posts/'.$post->id).'"'];
         }catch(Exception $e){
           return ['message'=>'Sorry your post not create, check the params again'];
         }
@@ -71,9 +75,10 @@ class PostsController extends Controller
       */
       public function show($id)
       {
-        if(empty(Post::find($id)))
-        return ['message' => 'The post you looking for not found'];
-        return Post::find($id);
+        $post = DB::table('posts')->where([['id',$id],['delete_status',0]])->get()->first();
+        if($post == null)
+          return ['message' => 'The post you looking for not found'];
+        return response()->json($post);
       }
 
       /**
@@ -90,8 +95,8 @@ class PostsController extends Controller
         if($check_user == null)
           return ['message'=>"Sorry we can't authenticate who are you, please try again"];
         $check_posts = DB::table('posts')->where([['id',$id],['created_by',$check_user->id]])->get()->first();
-        $check_category = DB::table('categories')->where(['id',$request->input('category')]);
-        if($check_category != null)
+        $check_category = DB::table('categories')->where('id',$request->input('category'))->get()->first();
+        if($check_category == null)
           return ['message'=>"Category not found, please check category params agains"];
         if($check_posts == null)
           return ['message'=>"Sorry you can't edit posts which you not create"];

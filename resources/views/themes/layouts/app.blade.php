@@ -96,6 +96,7 @@
                 Hi, {{Session::get('users')->name}}
               </a>
               <div class="dropdown-menu" aria-labelledby="logout">
+                <p class="dropdown-item">{{Session::get('users')->api_token}}</p>
                 <a class="dropdown-item" href="{{url('logout')}}">Logout</a>
               </div>
             </li>

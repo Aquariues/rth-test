@@ -38,9 +38,12 @@
                         <div class="card-date">
                           <span class="date-b">{{$r->created_at}}</span>
                         </div>
-                        <div>
+                        <div class="row">
                           <a href="{{url('posts/'.$r->id.'/edit/')}}" class="btn btn-warning">Edit</a>
-                          <a href="{{url('posts/destroy/'.$r->id)}}" class="btn btn-danger">Delete</a>
+                          <?php $url_del = 'posts/'.$r->id; ?>
+                          {!! Form::open(['url' => $url_del, 'method'=>'delete']) !!}
+                          <button type="submit" class="btn btn-danger">Delete</button>
+                          {!! Form::close() !!}
                         </div>
                       </h2>
                     </div>

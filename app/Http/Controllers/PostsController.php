@@ -121,7 +121,10 @@ class PostsController extends Controller
         ->orderBy('posts.created_at','desc')
         ->get()
         ->first();
-
+        if($data['detail'] == null){
+          flash('error','We cant find what are you looking for');
+          return back();
+        }
         $data['comments'] = DB::table('comments')
         ->select(['comments.*','users.name'])
         ->join('users','users.id','=','comments.created_by')
@@ -160,7 +163,11 @@ class PostsController extends Controller
         }
         $data['sort'] = ['1' => 'Newest to oldest', '2' => 'Oldest to newest'];
 
-        $data['posts'] = Post::where('id',$id)->get()->first();
+        $data['posts'] = Post::where([['id',$id],['delete_status',0]])->get()->first();
+        if($data['posts'] == null){
+          flash('error','We cant find what are you looking for');
+          return back();
+        }
         return view('themes.posts.edit',$data);
 
     }
@@ -183,14 +190,19 @@ class PostsController extends Controller
         $post = $posts::find($id);
         if($request->file('image') !== null){
           try{
-            $name = $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('images/posts',$name);
+            $path = $request->file('image')->storeOnCloudinary()->getSecurePath();
+            $resize_path = cloudinary()->upload($request->file('image')->getRealPath(), [
+              'folder' => 'uploads',
+              'transformation' => [
+                        'width' => 500,
+                        'height' => 500
+               ]])->getSecurePath();
+              $post->image = $path;
+              $post->image_resize = $resize_path;
           }catch(Exception $e){
             flash('error','Upload file failed !','error');
             return back();
           }
-          $real_path = str_replace('public','storage/app/',url('').$path);
-          $post->image = $real_path;
         }
 
         $post->title = $request->title;
@@ -216,6 +228,19 @@ class PostsController extends Controller
           flash('error','You must login for this feature !','error');
           return back();
         }
+        $check_posts = DB::table('posts')->where([['id',$id],['created_by',Session::get('users')->id]])->get()->first();
+        if($check_posts == null){
+          flash('error',"You can't delete post which you not created",'error');
+          return back();
+        }
+
+          $posts = new Post();
+          $post = $posts::find($id);
+          $post->updated_by = Session::get('users')->id;
+          $post->delete_status = 1;
+          $post->save();
+        flash('success','Your post was deleted','success');
+        return redirect(url('/my-posts'));
     }
 
     public function myPosts(){

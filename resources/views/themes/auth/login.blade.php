@@ -21,13 +21,13 @@
       <div class="col-md-12 mb-12 ">
         <div class="form-group">
           {{ Form::label('Email','Email *') }}
-          {{ Form::text('email','',['class'=>'form-control form-control-lg form-control-a','placeholder'=>'Aquariues@example.com','required'=>'true']) }}
+          {{ Form::text('email','',['class'=>'form-control form-control-lg form-control-a','placeholder'=>'Aquariues@example.com','required'=>'true','value'=>'aqua@gmail.com']) }}
         </div>
       </div>
       <div class="col-md-12 mb-12">
         <div class="form-group">
           {{ Form::label('password','Password *') }}
-          {{ Form::password('password',['class'=>'form-control form-control-lg form-control-a','required'=>'true']) }}
+          {{ Form::password('password',['class'=>'form-control form-control-lg form-control-a','required'=>'true','value'=>'aqua']) }}
         </div>
       </div>
       <div class="col-md-12 mb-12">
