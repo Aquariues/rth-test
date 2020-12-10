@@ -77,22 +77,18 @@ class PostsController extends Controller
           return back();
         }
         try{
-          $response = $request->file('image')->storeOnCloudinary()->getSecurePath();
-          dd($response);
-          $name = $request->file('image')->getClientOriginalName();
-          $path = $request->file('image')->storeAs('images/posts',$name);
+          $path = $request->file('image')->storeOnCloudinary()->getSecurePath();
         }catch(Exception $e){
           flash('error','Upload file failed !','error');
           return back();
         }
-        $real_path = str_replace('public','storage/app/',url('').$path);
         $post = new Post();
         $post->title = $request->title;
         $post->categories_id = $request->category;
         $post->created_by = Session::get('users')->id;
         $post->contents = $request->{'article-trixFields'}['content'];
         $post->count_view = rand(1,100);
-        $post->image = $real_path;
+        $post->image = $path;
         $post->image_resize = url('/').'/assets/img/post-'.$request->category.'.jpg';
         $post->save();
         flash('success','Your posts is created, thank you <3','success');

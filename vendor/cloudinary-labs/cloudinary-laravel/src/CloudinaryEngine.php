@@ -94,7 +94,6 @@ class CloudinaryEngine
     public function setUserPlatform()
     {
         BaseApiClient::$userPlatform = 'CloudinaryLaravel/' . self::PACKAGE_VERSION;
-        dump(BaseApiClient::$userPlatform);
     }
 
     /**
