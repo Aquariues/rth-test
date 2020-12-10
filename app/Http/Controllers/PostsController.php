@@ -78,6 +78,12 @@ class PostsController extends Controller
         }
         try{
           $path = $request->file('image')->storeOnCloudinary()->getSecurePath();
+          $resize_path = cloudinary()->upload($request->file('image')->getRealPath(), [
+            'folder' => 'uploads',
+            'transformation' => [
+                      'width' => 500,
+                      'height' => 500
+             ]])->getSecurePath();
         }catch(Exception $e){
           flash('error','Upload file failed !','error');
           return back();
@@ -89,7 +95,7 @@ class PostsController extends Controller
         $post->contents = $request->{'article-trixFields'}['content'];
         $post->count_view = rand(1,100);
         $post->image = $path;
-        $post->image_resize = url('/').'/assets/img/post-'.$request->category.'.jpg';
+        $post->image_resize = $resize_path;
         $post->save();
         flash('success','Your posts is created, thank you <3','success');
         return redirect(url('posts/'.$post->id));
@@ -189,11 +195,9 @@ class PostsController extends Controller
 
         $post->title = $request->title;
         $post->categories_id = $request->category;
-        $post->created_by = Session::get('users')->id;
         $post->updated_by = Session::get('users')->id;
         $post->updated_at = date('Y-m-d H:i:s');
         $post->contents = $request->contents;
-        $post->count_view = rand(1,100);
 
         $post->save();
         flash('success','Your post is updated !','success');
