@@ -22,8 +22,11 @@ install composer and nodejs
 run:
 
 composer install
+
 npm install
+
 php artisan migrate
+
 php artisan db:seed
 
 you can import postman file to see api example (please change USER-TOKEN in header with your TOKEN you see when you login)
